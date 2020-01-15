@@ -3,28 +3,30 @@
 //          2 - from the root of the number to the number
 
 try {
-    whatIsNumber(29, 2);      
+    whatIsNumber(3, 1);      
 } catch(e) {
     console.log("Error: " + e.name + " (" + e.message + ")");
 }
 
 function whatIsNumber(n, method) {
-    const prime = "This is a prime number", composite = "This is a composite number";
-    let i = 2, counter = 0, nSqrt = Math.floor(Math.sqrt(n));
-
-    if (n > 1000000 || n <= 0 || n == 1) throw new Error("The number is either greater than 1 000 000 or negative or 1");
+    n = Math.floor(n);
+    const prime = n + ' is a prime number', composite = n + ' is a composite number';
+    let i = 2, counter = 0, nSqrt = Math.sqrt(n);
+    
+    if (n > 1000000 || n <= 1) throw new Error("The number is either less than 2 or greater than 1 000 000");
+    if (method != 1 && method != 2) throw new Error("Method of enumiration must be 1 or 2");
 
     if (n % 2 == 0) {
         console.log(composite);
     } 
     else {
         switch(method) {
-            case 1: x(n, i, counter, nSqrt);
+            case 1: counter = x(i, counter, nSqrt);
             break;
-            case 2: y(n, counter, nSqrt);
+            case 2: counter = y(n, counter, nSqrt);
             break;
         }
-
+        
         if (counter == 0) {
             console.log(prime);
         }
@@ -32,16 +34,18 @@ function whatIsNumber(n, method) {
     }
 }
 
-function x(n, i, counter, nSqrt) {
+function x(i, counter, nSqrt) {
     while ((i <= nSqrt)) {
-        if ((n % i) == 0) counter++;
+        if ((nSqrt % i) == 0) counter++;
         i++;
     }
+    return counter;
 }
 
 function y(n, counter, nSqrt) {
     while (nSqrt < n) {
         if ((n % nSqrt) == 0) counter++;
-        nSqrt++;
+        nSqrt++;  
     }
+    return counter;
 }
